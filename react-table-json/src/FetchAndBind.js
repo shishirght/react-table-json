@@ -1,5 +1,10 @@
 import {useState} from 'react';
 import { useEffect } from 'react';
+
+// function deleteItem(id){
+// console.log("Delete user: "+ id)
+// }
+
 function FetchAndBind() {
   // 20231106091946
   // https://reqres.in/api/users
@@ -13,6 +18,14 @@ function FetchAndBind() {
         fetch('https://reqres.in/api/users').then(res=> res.json())
         .then(jsonres => setUsers(jsonres.data) );
         } ,[])
+
+
+
+        let deleteItem = (uid) => {
+             console.log("Delete user: "+uid)
+            let filteredUsers = users.filter( user => user.id !== uid )
+            setUsers(filteredUsers);
+        }
 
 //     {
 //       id: 1,
@@ -67,7 +80,7 @@ function FetchAndBind() {
             <th>Mail</th>
             <th>Name</th>
             <th>Surname</th>
-            <th>DP</th>
+            <th>DP</th><th>Action</th>
             {/* "id": 5,
     "email": "charles.morris@reqres.in",
     "first_name": "Charles",
@@ -85,7 +98,7 @@ function FetchAndBind() {
                 <td>{user.first_name}</td>
                 <td>{user.last_name}</td>             
                 <td><img src={user.avatar}></img></td>
-                
+                <td><button onClick={() => deleteItem(user.id)}> DELETE </button></td>
             </tr>
             )}
             
